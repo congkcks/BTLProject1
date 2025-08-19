@@ -1,4 +1,4 @@
-# PHÂN TÍCH YÊU CẦU PHẦN MẀM - ENGBUDDY
+# PHÂN TÍCH YÊU CẦU PHẦN MỀM - ENGBUDDY
 ## English Learning Platform
 
 ---
