@@ -486,3 +486,47 @@ EngBuddy đại diện cho một nền tảng học tiếng Anh hiện đại, t
 **Last Updated:** August 19, 2025  
 **Prepared by:** Development Team  
 **Status:** Active Development
+
+---
+
+## 5. QUY TRÌNH PHÂN TÍCH NGHIỆP VỤ & YÊU CẦU
+
+### 5.1. Xác định những người liên quan đến dự án (Stakeholders)
+- **Product Owner:** Đại diện nhóm phát triển, chịu trách nhiệm định hướng sản phẩm.
+- **Business Analyst:** Phân tích, thu thập và đặc tả yêu cầu.
+- **Nhà phát triển (Developers):** Xây dựng, triển khai hệ thống.
+- **Người dùng cuối (End-users):** Học viên, giáo viên tiếng Anh, khách truy cập.
+- **Quản trị viên (Admin):** Quản lý nội dung, người dùng, thống kê.
+- **Đối tác công nghệ:** Nhà cung cấp dịch vụ backend (Supabase), dịch vụ AI, dịch vụ lưu trữ.
+
+### 5.2. Lập câu hỏi phỏng vấn/Bảng câu hỏi (Interview Questions/Questionnaire)
+- Bạn thường gặp khó khăn gì khi học tiếng Anh online?
+- Bạn mong muốn hệ thống hỗ trợ những tính năng nào?
+- Bạn có thường xuyên sử dụng tính năng luyện nói/tra từ điển không?
+- Bạn muốn theo dõi tiến độ học tập như thế nào?
+- Bạn có cần tích hợp AI chat, phát âm, nhận diện giọng nói không?
+- Giao diện như thế nào là dễ sử dụng với bạn?
+- Bạn có quan tâm đến bảo mật thông tin cá nhân không?
+
+### 5.3. Thu thập các tài liệu liên quan (Gather relevant documents)
+- Quy định về bảo mật dữ liệu cá nhân (GDPR, Nghị định 13/2023/NĐ-CP)
+- Mẫu giao diện UI/UX (wireframe, prototype)
+- Tài liệu hướng dẫn sử dụng Supabase, shadcn/ui, Web Speech API
+- Các mẫu báo cáo, thống kê tiến độ học tập
+
+### 5.4. Viết các user story và tiêu chí chấp nhận (User Stories & Acceptance Criteria)
+**Ví dụ:**
+- *Là một học viên, tôi muốn tra cứu từ vựng để hiểu nghĩa và ví dụ sử dụng, để học từ mới hiệu quả.*
+  - Tiêu chí chấp nhận: Có thể nhập từ, nhận kết quả định nghĩa, ví dụ, phát âm.
+- *Là một giáo viên, tôi muốn tạo bài tập cho học viên, để kiểm tra tiến độ học tập.*
+  - Tiêu chí chấp nhận: Tạo bài tập, giao cho học viên, xem kết quả.
+- *Là một người dùng, tôi muốn luyện nói với AI để cải thiện phát âm.*
+  - Tiêu chí chấp nhận: Ghi âm, nhận phản hồi AI, nghe lại phát âm mẫu.
+
+### 5.5. Đặc tả yêu cầu (Specify requirements)
+- Đã trình bày chi tiết ở các mục 3.1 (Chức năng) và 3.2 (Phi chức năng) phía trên.
+
+### 5.6. Mô hình hóa yêu cầu (Model requirements)
+- **Sơ đồ Use Case:** Mô tả các tương tác chính giữa người dùng và hệ thống (tra từ, làm bài tập, chat AI, luyện nói, quản trị).
+- **Sơ đồ luồng dữ liệu (DFD):** Biểu diễn luồng thông tin giữa các module (User → Dictionary Service → Database → UI).
+- **Sơ đồ ERD:** Mô hình hóa quan hệ dữ liệu (User, Dictionary, Exercise, Conversation, Topic, Progress).
