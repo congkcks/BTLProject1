@@ -1,4 +1,4 @@
-# TÀI LIỆU ĐẶC TẢ YÊU CẦU PHẦN MỀM (SRS)
+# TÀI LIỆU ĐẶC SẢN PHẨM (SRS)
 
 ## 1. GIỚI THIỆU
 
@@ -530,3 +530,145 @@ EngBuddy đại diện cho một nền tảng học tiếng Anh hiện đại, t
 - **Sơ đồ Use Case:** Mô tả các tương tác chính giữa người dùng và hệ thống (tra từ, làm bài tập, chat AI, luyện nói, quản trị).
 - **Sơ đồ luồng dữ liệu (DFD):** Biểu diễn luồng thông tin giữa các module (User → Dictionary Service → Database → UI).
 - **Sơ đồ ERD:** Mô hình hóa quan hệ dữ liệu (User, Dictionary, Exercise, Conversation, Topic, Progress).
+
+#### 5.6.1. Sơ đồ Use Case (Mô tả bằng văn bản)
+- **User**
+  - Tra cứu từ điển (Dictionary)
+  - Làm bài tập (Exercises)
+  - Chat với AI (AI Chat)
+  - Luyện nói theo chủ đề (Conversation Topics)
+  - Xem tiến độ học tập
+  - Đăng ký/Đăng nhập (nếu muốn lưu tiến độ)
+- **Admin**
+  - Quản lý nội dung từ điển, bài tập, chủ đề
+  - Quản lý người dùng
+  - Xem báo cáo thống kê
+
+#### 5.6.2. Sơ đồ luồng dữ liệu (DFD - mô tả logic)
+- **User** nhập yêu cầu → **UI** → **Service** (dictionaryService, exerciseService, consultationService) → **Supabase Database**
+- **User** gửi bài tập → **Exercise Service** → **Chấm điểm** → **Lưu kết quả**
+- **User** chat với AI → **Consultation Service** → **AI Model** → **Trả lời**
+- **User** luyện nói → **Web Speech API** → **Nhận diện/Phản hồi**
+
+#### 5.6.3. Sơ đồ ERD (Mô hình dữ liệu - mô tả bảng chính)
+- **User** (id, email, name, role, ...)
+- **DictionaryEntry** (id, word, definition, examples, ...)
+- **FavoriteWord** (user_id, word_id)
+- **Exercise** (id, type, content, answer, ...)
+- **UserExerciseResult** (user_id, exercise_id, score, submitted_at)
+- **Conversation** (id, user_id, messages, topic_id, ...)
+- **Topic** (id, title, description, ...)
+- **Progress** (user_id, metric, value, ...)
+
+> Lưu ý: Nếu cần sơ đồ hình ảnh, có thể sử dụng các công cụ như draw.io, diagrams.net hoặc PlantUML để trực quan hóa các mô hình trên.
+
+---
+
+## 6. PHỤ LỤC SƠ ĐỒ HÓA YÊU CẦU (PlantUML)
+
+### 6.1. Sơ đồ Use Case
+```plantuml
+@startuml
+actor User
+actor Admin
+
+User --> (Tra cứu từ điển)
+User --> (Làm bài tập)
+User --> (Chat với AI)
+User --> (Luyện nói theo chủ đề)
+User --> (Xem tiến độ học tập)
+User --> (Đăng ký/Đăng nhập)
+
+Admin --> (Quản lý nội dung)
+Admin --> (Quản lý người dùng)
+Admin --> (Xem báo cáo thống kê)
+@enduml
+```
+
+### 6.2. Sơ đồ luồng dữ liệu (DFD - Level 1)
+```plantuml
+@startuml
+actor User
+rectangle "UI" as UI
+rectangle "Dictionary Service" as DS
+rectangle "Exercise Service" as ES
+rectangle "Consultation Service" as CS
+database "Supabase DB" as DB
+cloud "AI Model" as AI
+cloud "Web Speech API" as Speech
+
+User --> UI
+UI --> DS : Tra từ
+UI --> ES : Làm bài tập
+UI --> CS : Chat AI / Luyện nói
+DS --> DB : Lấy dữ liệu từ điển
+ES --> DB : Lưu kết quả
+CS --> AI : Gửi câu hỏi
+UI --> Speech : Ghi âm, nhận diện
+@enduml
+```
+
+### 6.3. Sơ đồ ERD (Mô hình dữ liệu)
+```plantuml
+@startuml
+entity User {
+  id PK
+  email
+  name
+  role
+}
+
+entity DictionaryEntry {
+  id PK
+  word
+  definition
+  examples
+}
+
+entity FavoriteWord {
+  user_id FK
+  word_id FK
+}
+
+entity Exercise {
+  id PK
+  type
+  content
+  answer
+}
+
+entity UserExerciseResult {
+  user_id FK
+  exercise_id FK
+  score
+  submitted_at
+}
+
+entity Conversation {
+  id PK
+  user_id FK
+  messages
+  topic_id FK
+}
+
+entity Topic {
+  id PK
+  title
+  description
+}
+
+entity Progress {
+  user_id FK
+  metric
+  value
+}
+
+User ||--o{ FavoriteWord
+DictionaryEntry ||--o{ FavoriteWord
+User ||--o{ UserExerciseResult
+Exercise ||--o{ UserExerciseResult
+User ||--o{ Conversation
+Topic ||--o{ Conversation
+User ||--o{ Progress
+@enduml
+```
